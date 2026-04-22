@@ -3,12 +3,18 @@ import re
 import os
 
 def get_top_repos(username):
-    url = f"https://api.github.com/users/{username}/repos?sort=stars&direction=desc"
+    url = f"https://api.github.com/users/{username}/repos?per_page=100"
     response = requests.get(url)
     if response.status_code == 200:
         repos = response.json()
-        # 排除同名主页仓库，展示另外两个最火的项目
-        filtered_repos = [repo for repo in repos if repo['name'].lower() != username.lower()]
+        # 1. 排除同名仓库
+        # 2. 排除 fork 的仓库
+        filtered_repos = [
+            repo for repo in repos 
+            if repo['name'].lower() != username.lower() and not repo['fork']
+        ]
+        # 3. 按 Star 数从高到低排序
+        filtered_repos.sort(key=lambda x: x['stargazers_count'], reverse=True)
         return filtered_repos[:2]
     return []
 
