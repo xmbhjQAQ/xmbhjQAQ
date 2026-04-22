@@ -1,6 +1,6 @@
 <!-- Header Section -->
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=Ciallo～(∠・ω<)%20⌒★,%20I'm%20QAQ!&fontSize=45&fontAlignY=35&desc=Finance%20Major%20%7C%20AI%20Enthusiast%20%7C%20Vibe%20Coder&descAlignY=55&descAlign=50&animation=twinkling" width="100%" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=Ciallo~%20I'm%20QAQ!&fontSize=50&fontAlignY=35&desc=Finance%20Major%20%7C%20AI%20Enthusiast%20%7C%20Vibe%20Coder&descAlignY=55&descAlign=50&animation=twinkling" width="100%" />
 </div>
 
 <div align="center">
