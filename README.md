@@ -1,6 +1,6 @@
 <!-- Header Section -->
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=Ciallo~%20I'm%20QAQ!&fontSize=50&fontAlignY=35&desc=Finance%20Major%20%7C%20AI%20Enthusiast%20%7C%20Vibe%20Coder&descAlignY=55&descAlign=50&animation=twinkling" width="100%" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=Ciallo～(∠・ω%26lt%3B%20)⌒★,%20I'm%20QAQ!&fontSize=35&fontAlignY=35&desc=Finance%20Major%20%7C%20AI%20Enthusiast%20%7C%20Vibe%20Coder&descAlignY=55&descAlign=50&animation=twinkling" width="100%" />
 </div>
 
 <div align="center">
@@ -26,21 +26,21 @@
 
 ## 🛠️ Tech Stack & Arsenal
 
-### 🔮 Languages & Development (Vibe Coding)
+### 🔮 Languages & Development
 <p align="center">
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=py,cpp,js,ts,html,css,md,vscode&theme=dark" />
   </a>
 </p>
 
-### 🌌 Ops & Network (Cyberpunk Realm)
+### 🌌 Ops & Network
 <p align="center">
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=linux,ubuntu,docker,nginx,git,github,bash,powershell&theme=dark" />
   </a>
 </p>
 
-### 📈 Finance & Data Analysis (Quants)
+### 📈 Finance & Data Analysis
 <p align="center">
   <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" />
   <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" />
