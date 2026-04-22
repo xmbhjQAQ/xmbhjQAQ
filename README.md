@@ -55,7 +55,7 @@
   <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="80%">
 </p>
 
-## 📊 GitHub Cyber Stats
+## 📊 GitHub Stats
 
 <div align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=xmbhjQAQ&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&ring_color=5294E2" alt="GitHub Stats" width="48%" />
