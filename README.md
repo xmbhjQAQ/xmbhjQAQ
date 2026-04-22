@@ -54,11 +54,11 @@
 
 <div align="center" id="featured-projects">
 <!-- PROJECTS_START -->
-  <a href="https://github.com/xmbhjQAQ/my-static-sites">
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=xmbhjQAQ&repo=my-static-sites&theme=tokyonight" />
+  <a href="https://github.com/xmbhjQAQ/HUTB-DrCom-Login">
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=xmbhjQAQ&repo=HUTB-DrCom-Login&theme=tokyonight" />
   </a>
-  <a href="https://github.com/xmbhjQAQ/ocsjs">
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=xmbhjQAQ&repo=ocsjs&theme=tokyonight" />
+  <a href="https://github.com/xmbhjQAQ/FuckXiaoyuananquantong">
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=xmbhjQAQ&repo=FuckXiaoyuananquantong&theme=tokyonight" />
   </a>
   <!-- PROJECTS_END -->
 </div>
