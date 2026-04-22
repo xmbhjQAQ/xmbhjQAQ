@@ -50,6 +50,20 @@
 
 <br>
 
+## 🚀 Featured Projects
+
+<div align="center">
+  <!-- You can pin your best repositories here -->
+  <a href="https://github.com/xmbhjQAQ/xmbhjQAQ">
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=xmbhjQAQ&repo=xmbhjQAQ&theme=tokyonight&show_owner=true" />
+  </a>
+  <a href="#">
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=xmbhjQAQ&repo=Your-Awesome-Project&theme=tokyonight" />
+  </a>
+</div>
+
+<br>
+
 <!-- Decorative Line -->
 <p align="center">
   <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="80%">
