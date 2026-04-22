@@ -26,7 +26,7 @@ def update_readme(username, top_repos):
     for repo in top_repos:
         name = repo['name']
         new_content += f'  <a href="https://github.com/{username}/{name}">\n'
-        new_content += f'    <img src="https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={name}&theme=flat&hide_border=true&bg_color=00000000&title_color=3b82f6&text_color=4b5563&icon_color=3b82f6" />\n'
+        new_content += f'    <img src="https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={name}&theme=transparent&hide_border=true&title_color=2563eb&text_color=475569&icon_color=2563eb" />\n'
         new_content += f'  </a>\n'
 
     # 使用正则替换锚点之间的内容
