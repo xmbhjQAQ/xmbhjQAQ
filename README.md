@@ -1,6 +1,6 @@
 <!-- Header Section -->
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=Ciallo～(∠・ω%26lt%3B%20)⌒★,%20I'm%20QAQ!&fontSize=35&fontAlignY=35&desc=Finance%20Major%20%7C%20AI%20Enthusiast%20%7C%20Vibe%20Coder&descAlignY=55&descAlign=50&animation=twinkling" width="100%" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=250&section=header&text=Ciallo～(∠・ω%26lt%3B%20)⌒★,%20I'm%20QAQ!&fontSize=45&fontAlignY=35&fontColor=ffffff&desc=Finance%20Major%20%7C%20AI%20Enthusiast%20%7C%20Vibe%20Coder&descAlignY=55&descAlign=50&descColor=e0f2fe&animation=twinkling" width="100%" />
 </div>
 
 <div align="center">
@@ -73,8 +73,8 @@
 ## 📊 GitHub Stats
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=xmbhjQAQ&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&ring_color=5294E2" alt="GitHub Stats" width="48%" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=xmbhjQAQ&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117" alt="Top Languages" width="48%" />
+  <img src="https://github-readme-stats.vercel.app/api?username=xmbhjQAQ&show_icons=true&theme=flat&hide_border=true&bg_color=00000000&title_color=3b82f6&text_color=4b5563&icon_color=3b82f6" alt="GitHub Stats" width="48%" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=xmbhjQAQ&layout=compact&theme=flat&hide_border=true&bg_color=00000000&title_color=3b82f6&text_color=4b5563" alt="Top Languages" width="48%" />
 </div>
 
 <br>
