@@ -54,11 +54,11 @@
 
 <div align="center" id="featured-projects">
 <!-- PROJECTS_START -->
+  <a href="https://github.com/xmbhjQAQ/my-static-sites">
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=xmbhjQAQ&repo=my-static-sites&theme=transparent&hide_border=true&title_color=2563eb&text_color=475569&icon_color=2563eb" />
+  </a>
   <a href="https://github.com/xmbhjQAQ/HUTB-DrCom-Login">
     <img src="https://github-readme-stats.vercel.app/api/pin/?username=xmbhjQAQ&repo=HUTB-DrCom-Login&theme=transparent&hide_border=true&title_color=2563eb&text_color=475569&icon_color=2563eb" />
-  </a>
-  <a href="https://github.com/xmbhjQAQ/FuckXiaoyuananquantong">
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=xmbhjQAQ&repo=FuckXiaoyuananquantong&theme=transparent&hide_border=true&title_color=2563eb&text_color=475569&icon_color=2563eb" />
   </a>
   <!-- PROJECTS_END -->
 </div>
