@@ -3,6 +3,8 @@ on:
   schedule:
     - cron: "0 1 * * *" # 每天凌晨1点更新（在贪吃蛇之后）
   workflow_dispatch: # 允许手动触发
+permissions:
+  contents: write
 jobs:
   update-readme:
     runs-on: ubuntu-latest
@@ -16,12 +18,14 @@ jobs:
         run: pip install requests
       - name: Update README
         run: python scripts/update_projects.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add README.md
-          git diff --quiet && git diff --staged --quiet || git commit -m "docs: auto-update featured projects"
+          git add README.md assets/generated
+          git diff --staged --quiet || git commit -m "docs: auto-update generated profile cards"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:

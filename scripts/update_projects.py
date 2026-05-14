@@ -1,35 +1,164 @@
-import requests
-import re
+import html
 import os
+import re
+from pathlib import Path
 
-def get_top_repos(username):
-    url = f"https://api.github.com/users/{username}/repos?per_page=100"
-    response = requests.get(url)
-    if response.status_code == 200:
-        repos = response.json()
-        # 1. 排除同名仓库
-        # 2. 排除 fork 的仓库
-        filtered_repos = [
-            repo for repo in repos 
-            if repo['name'].lower() != username.lower() and not repo['fork']
-        ]
-        # 3. 按 Star 数从高到低排序
-        filtered_repos.sort(key=lambda x: x['stargazers_count'], reverse=True)
-        return filtered_repos[:2]
-    return []
+import requests
+
+
+USER = "xmbhjQAQ"
+GENERATED_DIR = Path("assets/generated")
+GITHUB_API = "https://api.github.com"
+
+LANGUAGE_COLORS = {
+    "Python": "#3572A5",
+    "JavaScript": "#f1e05a",
+    "TypeScript": "#3178c6",
+    "HTML": "#e34c26",
+    "CSS": "#563d7c",
+    "C++": "#f34b7d",
+    "C": "#555555",
+    "Java": "#b07219",
+    "Shell": "#89e051",
+    "PowerShell": "#012456",
+}
+
+
+def github_headers():
+    headers = {"Accept": "application/vnd.github+json"}
+    token = os.getenv("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+        headers["X-GitHub-Api-Version"] = "2022-11-28"
+    return headers
+
+
+def github_get(path_or_url):
+    url = path_or_url if path_or_url.startswith("https://") else f"{GITHUB_API}{path_or_url}"
+    response = requests.get(url, headers=github_headers(), timeout=30)
+    response.raise_for_status()
+    return response.json()
+
+
+def escape(value):
+    return html.escape(str(value or ""), quote=True)
+
+
+def truncate(value, limit):
+    value = " ".join(str(value or "").split())
+    return value if len(value) <= limit else value[: limit - 1] + "..."
+
+
+def write_svg(path, body, width=495, height=195):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        f"""<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title {{ font: 700 22px Segoe UI, Arial, sans-serif; fill: #2563eb; }}
+    .text {{ font: 500 14px Segoe UI, Arial, sans-serif; fill: #475569; }}
+    .muted {{ font: 500 13px Segoe UI, Arial, sans-serif; fill: #64748b; }}
+    .num {{ font: 700 24px Segoe UI, Arial, sans-serif; fill: #0f172a; }}
+  </style>
+  <rect width="{width}" height="{height}" rx="6" fill="#ffffff"/>
+  <rect x="0.5" y="0.5" width="{width - 1}" height="{height - 1}" rx="5.5" stroke="#dbe3ef"/>
+{body}
+</svg>
+""",
+        encoding="utf-8",
+    )
+
+
+def get_repos(username):
+    repos = github_get(f"/users/{username}/repos?per_page=100&sort=updated")
+    filtered_repos = [
+        repo
+        for repo in repos
+        if repo["name"].lower() != username.lower() and not repo["fork"]
+    ]
+    filtered_repos.sort(key=lambda repo: repo["stargazers_count"], reverse=True)
+    return filtered_repos
+
+
+def render_project_card(repo, path):
+    name = escape(truncate(repo["name"], 34))
+    description = escape(truncate(repo.get("description") or "No description provided.", 58))
+    language = escape(repo.get("language") or "Code")
+    color = LANGUAGE_COLORS.get(repo.get("language"), "#64748b")
+    stars = repo["stargazers_count"]
+    forks = repo["forks_count"]
+
+    body = f"""  <text x="24" y="48" class="title">{name}</text>
+  <text x="24" y="82" class="text">{description}</text>
+  <circle cx="31" cy="134" r="6" fill="{color}"/>
+  <text x="45" y="139" class="muted">{language}</text>
+  <text x="185" y="139" class="muted">Stars {stars}</text>
+  <text x="285" y="139" class="muted">Forks {forks}</text>
+  <text x="24" y="169" class="muted">Updated {escape(repo["updated_at"][:10])}</text>"""
+    write_svg(path, body)
+
+
+def render_stats_card(username, repos, path):
+    profile = github_get(f"/users/{username}")
+    total_stars = sum(repo["stargazers_count"] for repo in repos)
+    total_forks = sum(repo["forks_count"] for repo in repos)
+
+    body = f"""  <text x="24" y="45" class="title">GitHub Stats</text>
+  <text x="24" y="88" class="num">{profile["public_repos"]}</text>
+  <text x="24" y="112" class="muted">Public repos</text>
+  <text x="145" y="88" class="num">{total_stars}</text>
+  <text x="145" y="112" class="muted">Total stars</text>
+  <text x="266" y="88" class="num">{total_forks}</text>
+  <text x="266" y="112" class="muted">Total forks</text>
+  <text x="387" y="88" class="num">{profile["followers"]}</text>
+  <text x="387" y="112" class="muted">Followers</text>
+  <text x="24" y="160" class="text">Profile generated from GitHub API data.</text>"""
+    write_svg(path, body)
+
+
+def render_top_languages_card(repos, path):
+    totals = {}
+    for repo in repos[:25]:
+        languages = github_get(repo["languages_url"])
+        for language, size in languages.items():
+            totals[language] = totals.get(language, 0) + size
+
+    top_languages = sorted(totals.items(), key=lambda item: item[1], reverse=True)[:5]
+    total_size = sum(size for _, size in top_languages) or 1
+    rows = ['  <text x="24" y="38" class="title">Top Languages</text>']
+
+    for index, (language, size) in enumerate(top_languages):
+        y = 68 + index * 24
+        percent = size / total_size
+        width = max(8, int(235 * percent))
+        color = LANGUAGE_COLORS.get(language, "#64748b")
+        rows.append(f'  <text x="24" y="{y}" class="muted">{escape(language)}</text>')
+        rows.append(f'  <rect x="145" y="{y - 10}" width="235" height="10" rx="5" fill="#e2e8f0"/>')
+        rows.append(f'  <rect x="145" y="{y - 10}" width="{width}" height="10" rx="5" fill="{color}"/>')
+        rows.append(f'  <text x="395" y="{y}" class="muted">{percent:.1%}</text>')
+
+    write_svg(path, "\n".join(rows))
+
+
+def refresh_cards(username, repos):
+    top_repos = repos[:2]
+    render_stats_card(username, repos, GENERATED_DIR / "github-stats.svg")
+    render_top_languages_card(repos, GENERATED_DIR / "top-langs.svg")
+    for index, repo in enumerate(top_repos, start=1):
+        render_project_card(repo, GENERATED_DIR / f"project-{index}.svg")
+    return top_repos
+
 
 def update_readme(username, top_repos):
     with open("README.md", "r", encoding="utf-8") as f:
         content = f.read()
 
     new_content = ""
-    for repo in top_repos:
-        name = repo['name']
+    for index, repo in enumerate(top_repos, start=1):
+        name = repo["name"]
         new_content += f'  <a href="https://github.com/{username}/{name}">\n'
-        new_content += f'    <img src="https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={name}&theme=transparent&hide_border=true&title_color=2563eb&text_color=475569&icon_color=2563eb" />\n'
-        new_content += f'  </a>\n'
+        new_content += f'    <img src="./assets/generated/project-{index}.svg" alt="{escape(name)}" />\n'
+        new_content += f"  </a>\n"
 
-    # 使用正则替换锚点之间的内容
     pattern = r"<!-- PROJECTS_START -->.*?<!-- PROJECTS_END -->"
     replacement = f"<!-- PROJECTS_START -->\n{new_content}  <!-- PROJECTS_END -->"
     updated_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
@@ -37,11 +166,12 @@ def update_readme(username, top_repos):
     with open("README.md", "w", encoding="utf-8") as f:
         f.write(updated_content)
 
+
 if __name__ == "__main__":
-    USER = "xmbhjQAQ"
-    top = get_top_repos(USER)
-    if top:
-        update_readme(USER, top)
-        print("README updated with top repos.")
+    all_repos = get_repos(USER)
+    if all_repos:
+        featured_repos = refresh_cards(USER, all_repos)
+        update_readme(USER, featured_repos)
+        print("README and generated SVG cards updated.")
     else:
         print("No repos found.")

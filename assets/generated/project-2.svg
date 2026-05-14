@@ -1,0 +1,17 @@
+<svg width="495" height="195" viewBox="0 0 495 195" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font: 700 22px Segoe UI, Arial, sans-serif; fill: #2563eb; }
+    .text { font: 500 14px Segoe UI, Arial, sans-serif; fill: #475569; }
+    .muted { font: 500 13px Segoe UI, Arial, sans-serif; fill: #64748b; }
+    .num { font: 700 24px Segoe UI, Arial, sans-serif; fill: #0f172a; }
+  </style>
+  <rect width="495" height="195" rx="6" fill="#ffffff"/>
+  <rect x="0.5" y="0.5" width="494" height="194" rx="5.5" stroke="#dbe3ef"/>
+  <text x="24" y="48" class="title">HUTB-DrCom-Login</text>
+  <text x="24" y="82" class="text">使Linux平台登录HUTB校园网不再困难！</text>
+  <circle cx="31" cy="134" r="6" fill="#3572A5"/>
+  <text x="45" y="139" class="muted">Python</text>
+  <text x="185" y="139" class="muted">Stars 6</text>
+  <text x="285" y="139" class="muted">Forks 0</text>
+  <text x="24" y="169" class="muted">Updated 2026-04-13</text>
+</svg>

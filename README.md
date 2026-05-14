@@ -55,10 +55,10 @@
 <div align="center" id="featured-projects">
 <!-- PROJECTS_START -->
   <a href="https://github.com/xmbhjQAQ/my-static-sites">
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=xmbhjQAQ&repo=my-static-sites&theme=transparent&hide_border=true&title_color=2563eb&text_color=475569&icon_color=2563eb" />
+    <img src="./assets/generated/project-1.svg" alt="my-static-sites" />
   </a>
   <a href="https://github.com/xmbhjQAQ/HUTB-DrCom-Login">
-    <img src="https://github-readme-stats.vercel.app/api/pin/?username=xmbhjQAQ&repo=HUTB-DrCom-Login&theme=transparent&hide_border=true&title_color=2563eb&text_color=475569&icon_color=2563eb" />
+    <img src="./assets/generated/project-2.svg" alt="HUTB-DrCom-Login" />
   </a>
   <!-- PROJECTS_END -->
 </div>
@@ -73,8 +73,8 @@
 ## 📊 GitHub Stats
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=xmbhjQAQ&show_icons=true&theme=transparent&hide_border=true&title_color=2563eb&text_color=475569&icon_color=2563eb" alt="GitHub Stats" width="48%" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=xmbhjQAQ&layout=compact&theme=transparent&hide_border=true&title_color=2563eb&text_color=475569" alt="Top Languages" width="48%" />
+  <img src="./assets/generated/github-stats.svg" alt="GitHub Stats" width="48%" />
+  <img src="./assets/generated/top-langs.svg" alt="Top Languages" width="48%" />
 </div>
 
 <br>
