@@ -1,11 +1,11 @@
 <!-- Header Section -->
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0:00c6fb,100:005bea&height=220&section=header&text=xmbhjQAQ&fontSize=52&fontAlignY=38&fontColor=ffffff&desc=Finance%20%7C%20Data%20%7C%20DevOps&descAlignY=58&descAlign=50&descColor=e0f2fe" width="100%" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0:00c6fb,100:005bea&height=220&section=header&text=Ciallo%EF%BD%9E(%E2%88%A0%E3%83%BB%CF%89%3C%20)%E2%8C%92%E2%98%85%2C%20I'm%20QAQ!&fontSize=44&fontAlignY=44&fontColor=ffffff" width="100%" />
 </div>
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=xmbhjQAQ&style=flat-square&label=Profile%20views&color=0f766e" alt="Profile views" />
-  <img src="./assets/generated/total-contributions.svg" alt="Total contributions" />
+  <img src="https://komarev.com/ghpvc/?username=xmbhjQAQ&style=flat-square&label=Profile%20views&color=0f766e" alt="Profile views" height="20" />
+  <img src="./assets/generated/total-contributions.svg" alt="Total contributions" height="20" />
 </p>
 
 ## About

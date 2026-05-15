@@ -1,5 +1,8 @@
 name: Auto Update Projects
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: "0 1 * * *" # 每天凌晨1点更新（在贪吃蛇之后）
   workflow_dispatch: # 允许手动触发

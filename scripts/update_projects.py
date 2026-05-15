@@ -98,21 +98,21 @@ def write_svg(path, body, width=495, height=195):
 
 
 def write_badge(path, label, value):
-    width = 255
-    height = 28
-    label_width = 155
+    width = 190
+    height = 20
+    label_width = 132
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
         f"""<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" fill="none" xmlns="http://www.w3.org/2000/svg">
   <style>
-    .label {{ font: 600 12px Segoe UI, Arial, sans-serif; fill: #ffffff; }}
-    .value {{ font: 700 12px Segoe UI, Arial, sans-serif; fill: #ffffff; }}
+    .label {{ font: 600 11px Segoe UI, Arial, sans-serif; fill: #ffffff; }}
+    .value {{ font: 700 11px Segoe UI, Arial, sans-serif; fill: #ffffff; }}
   </style>
-  <rect width="{width}" height="{height}" rx="4" fill="#334155"/>
-  <rect x="{label_width}" width="{width - label_width}" height="{height}" rx="4" fill="#0f766e"/>
+  <rect width="{width}" height="{height}" fill="#334155"/>
+  <rect x="{label_width}" width="{width - label_width}" height="{height}" fill="#0f766e"/>
   <path d="M {label_width} 0 H {label_width + 4} V {height} H {label_width} Z" fill="#0f766e"/>
-  <text x="{label_width / 2}" y="18" class="label" text-anchor="middle">{escape(label)}</text>
-  <text x="{label_width + (width - label_width) / 2}" y="18" class="value" text-anchor="middle">{escape(value)}</text>
+  <text x="{label_width / 2}" y="14" class="label" text-anchor="middle">{escape(label)}</text>
+  <text x="{label_width + (width - label_width) / 2}" y="14" class="value" text-anchor="middle">{escape(value)}</text>
 </svg>
 """,
         encoding="utf-8",
