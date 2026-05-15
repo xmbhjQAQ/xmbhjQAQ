@@ -1,6 +1,7 @@
 import html
 import os
 import re
+from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
@@ -9,6 +10,7 @@ import requests
 USER = "xmbhjQAQ"
 GENERATED_DIR = Path("assets/generated")
 GITHUB_API = "https://api.github.com"
+GITHUB_GRAPHQL_API = "https://api.github.com/graphql"
 
 LANGUAGE_COLORS = {
     "Python": "#3572A5",
@@ -40,8 +42,35 @@ def github_get(path_or_url):
     return response.json()
 
 
+def github_graphql(query, variables):
+    token = os.getenv("GITHUB_TOKEN")
+    if not token:
+        return None
+
+    response = requests.post(
+        GITHUB_GRAPHQL_API,
+        headers=github_headers(),
+        json={"query": query, "variables": variables},
+        timeout=30,
+    )
+    response.raise_for_status()
+    payload = response.json()
+    if payload.get("errors"):
+        messages = "; ".join(error.get("message", "GraphQL error") for error in payload["errors"])
+        raise RuntimeError(messages)
+    return payload.get("data")
+
+
 def escape(value):
     return html.escape(str(value or ""), quote=True)
+
+
+def format_count(value):
+    return "--" if value is None else f"{value:,}"
+
+
+def github_datetime(value):
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
 
 
 def truncate(value, limit):
@@ -68,6 +97,28 @@ def write_svg(path, body, width=495, height=195):
     )
 
 
+def write_badge(path, label, value):
+    width = 255
+    height = 28
+    label_width = 155
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        f"""<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .label {{ font: 600 12px Segoe UI, Arial, sans-serif; fill: #ffffff; }}
+    .value {{ font: 700 12px Segoe UI, Arial, sans-serif; fill: #ffffff; }}
+  </style>
+  <rect width="{width}" height="{height}" rx="4" fill="#334155"/>
+  <rect x="{label_width}" width="{width - label_width}" height="{height}" rx="4" fill="#0f766e"/>
+  <path d="M {label_width} 0 H {label_width + 4} V {height} H {label_width} Z" fill="#0f766e"/>
+  <text x="{label_width / 2}" y="18" class="label" text-anchor="middle">{escape(label)}</text>
+  <text x="{label_width + (width - label_width) / 2}" y="18" class="value" text-anchor="middle">{escape(value)}</text>
+</svg>
+""",
+        encoding="utf-8",
+    )
+
+
 def get_repos(username):
     repos = github_get(f"/users/{username}/repos?per_page=100&sort=updated")
     filtered_repos = [
@@ -77,6 +128,52 @@ def get_repos(username):
     ]
     filtered_repos.sort(key=lambda repo: repo["stargazers_count"], reverse=True)
     return filtered_repos
+
+
+def get_total_contributions(username, created_at):
+    query = """
+    query($login: String!, $from: DateTime!, $to: DateTime!) {
+      user(login: $login) {
+        contributionsCollection(from: $from, to: $to) {
+          contributionCalendar {
+            totalContributions
+          }
+        }
+      }
+    }
+    """
+    start = github_datetime(created_at)
+    now = datetime.now(timezone.utc)
+    total = 0
+
+    while start < now:
+        year_end = datetime(start.year + 1, 1, 1, tzinfo=timezone.utc)
+        end = min(year_end, now)
+        data = github_graphql(
+            query,
+            {
+                "login": username,
+                "from": start.isoformat().replace("+00:00", "Z"),
+                "to": end.isoformat().replace("+00:00", "Z"),
+            },
+        )
+        if not data or not data.get("user"):
+            return None
+
+        total += data["user"]["contributionsCollection"]["contributionCalendar"][
+            "totalContributions"
+        ]
+        start = end
+
+    return total
+
+
+def safe_total_contributions(username, created_at):
+    try:
+        return get_total_contributions(username, created_at)
+    except Exception as exc:
+        print(f"Contribution total unavailable: {exc}")
+        return None
 
 
 def render_project_card(repo, path):
@@ -100,18 +197,24 @@ def render_project_card(repo, path):
 def render_stats_card(username, repos, path):
     profile = github_get(f"/users/{username}")
     total_stars = sum(repo["stargazers_count"] for repo in repos)
-    total_forks = sum(repo["forks_count"] for repo in repos)
+    total_contributions = safe_total_contributions(username, profile["created_at"])
+    contribution_count = format_count(total_contributions)
+    write_badge(
+        GENERATED_DIR / "total-contributions.svg",
+        "Total contributions",
+        contribution_count,
+    )
 
     body = f"""  <text x="24" y="45" class="title">GitHub Stats</text>
   <text x="24" y="88" class="num">{profile["public_repos"]}</text>
   <text x="24" y="112" class="muted">Public repos</text>
   <text x="145" y="88" class="num">{total_stars}</text>
   <text x="145" y="112" class="muted">Total stars</text>
-  <text x="266" y="88" class="num">{total_forks}</text>
-  <text x="266" y="112" class="muted">Total forks</text>
+  <text x="266" y="88" class="num">{escape(contribution_count)}</text>
+  <text x="266" y="112" class="muted">Contributions</text>
   <text x="387" y="88" class="num">{profile["followers"]}</text>
   <text x="387" y="112" class="muted">Followers</text>
-  <text x="24" y="160" class="text">Profile generated from GitHub API data.</text>"""
+  <text x="24" y="160" class="text">Generated daily from GitHub API data.</text>"""
     write_svg(path, body)
 
 
@@ -157,7 +260,7 @@ def update_readme(username, top_repos):
         name = repo["name"]
         new_content += f'  <a href="https://github.com/{username}/{name}">\n'
         new_content += f'    <img src="./assets/generated/project-{index}.svg" alt="{escape(name)}" />\n'
-        new_content += f"  </a>\n"
+        new_content += "  </a>\n"
 
     pattern = r"<!-- PROJECTS_START -->.*?<!-- PROJECTS_END -->"
     replacement = f"<!-- PROJECTS_START -->\n{new_content}  <!-- PROJECTS_END -->"
