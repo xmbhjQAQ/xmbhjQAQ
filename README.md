@@ -84,6 +84,9 @@
   <a href="https://space.bilibili.com/174355920">
     <img src="https://img.shields.io/badge/Bilibili-FF8EB3?style=for-the-badge&logo=bilibili&logoColor=white" />
   </a>
+  <a href="https://afdian.com/a/QAQneko">
+    <img src="https://img.shields.io/badge/爱发电-946CE6?style=for-the-badge" />
+  </a>
   <a href="#">
     <img src="https://img.shields.io/badge/Steam-000000?style=for-the-badge&logo=steam&logoColor=white" />
   </a>
