@@ -7,5 +7,5 @@
   <rect x="132" width="58" height="20" fill="#0f766e"/>
   <path d="M 132 0 H 136 V 20 H 132 Z" fill="#0f766e"/>
   <text x="66.0" y="14" class="label" text-anchor="middle">Total contributions</text>
-  <text x="161.0" y="14" class="value" text-anchor="middle">325</text>
+  <text x="161.0" y="14" class="value" text-anchor="middle">326</text>
 </svg>
