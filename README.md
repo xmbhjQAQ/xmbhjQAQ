@@ -49,8 +49,8 @@
   <a href="https://github.com/xmbhjQAQ/my-static-sites">
     <img src="./assets/generated/project-1.svg" alt="my-static-sites" />
   </a>
-  <a href="https://github.com/xmbhjQAQ/HUTB-DrCom-Login">
-    <img src="./assets/generated/project-2.svg" alt="HUTB-DrCom-Login" />
+  <a href="https://github.com/xmbhjQAQ/Kuroko-Teleport">
+    <img src="./assets/generated/project-2.svg" alt="Kuroko-Teleport" />
   </a>
   <!-- PROJECTS_END -->
 </div>

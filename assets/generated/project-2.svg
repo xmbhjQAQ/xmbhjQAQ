@@ -7,11 +7,11 @@
   </style>
   <rect width="495" height="195" rx="6" fill="#ffffff"/>
   <rect x="0.5" y="0.5" width="494" height="194" rx="5.5" stroke="#dbe3ef"/>
-  <text x="24" y="48" class="title">HUTB-DrCom-Login</text>
-  <text x="24" y="82" class="text">使Linux平台登录HUTB校园网不再困难！</text>
-  <circle cx="31" cy="134" r="6" fill="#3572A5"/>
-  <text x="45" y="139" class="muted">Python</text>
-  <text x="185" y="139" class="muted">Stars 7</text>
-  <text x="285" y="139" class="muted">Forks 0</text>
-  <text x="24" y="169" class="muted">Updated 2026-05-24</text>
+  <text x="24" y="48" class="title">Kuroko-Teleport</text>
+  <text x="24" y="82" class="text">高性能、低耦合、零侵入的 Android 系统侧 GPS / 轨迹 / 运动传感器 Mock 引擎</text>
+  <circle cx="31" cy="134" r="6" fill="#64748b"/>
+  <text x="45" y="139" class="muted">Kotlin</text>
+  <text x="185" y="139" class="muted">Stars 14</text>
+  <text x="285" y="139" class="muted">Forks 5</text>
+  <text x="24" y="169" class="muted">Updated 2026-11-25</text>
 </svg>
